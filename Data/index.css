@@ -8,3 +8,21 @@
   --acento3: #c18549;
   --acento2: #384d64;
 }
+
+table {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+tr {
+  border: 1px solid black;
+  width: 10px;
+  height: 10px;
+  
+}
+
+td {
+  border: 1px solid black;
+    width: 10px;
+    height: 10px;
+}
