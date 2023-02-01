@@ -1,27 +1,22 @@
 //VARIABLES
 
-//Testing
 //LLAMADAS
-let player = new Soldier(5, 1);
+let player = new Soldier(5, 2);
 let enemy = new Zombie(4, 6);
+
+let peon = new Pawn(9, 19, "dummy");
 
 let timeID = setInterval(loop, 1000);
 
-console.log(who(5, 2));
-
-//OBJETO
-function Soldier(x, y) {
-  this.x = x;
-  this.y = y;
-}
+//console.log(getCellClass(5, 2));
 
 //FUNCIONES SALVAJES
-function getCasilla(col, row) {
+function getCell(col, row) {
   return document.querySelector(`#row${row}>#col${col}`);
 } // INPUT: (x,y) OUTPUT: (Referencia a celda)
 
-function who(x, y) {
-  let a = getCasilla(x, y);
+function getCellClass(x, y) {
+  let a = getCell(x, y);
   return a.getAttribute("class");
 }
 
@@ -32,16 +27,93 @@ window.addEventListener("keydown", (e) => {
 function loop() {
   player.setPos();
   enemy.setPos();
-  console.log(who(5, 2));
+  peon.updatePosition();
+  //console.log(getCellClass(5, 2));
 } //REVISAR MUY FUERTE
 
+///////////////////
+const clickTarget = document.getElementById("click-target");
+function build() {
+  window.addEventListener("click", function cacafoti(e) {
+    setTerrain(e);
+  });
+}
+function play() {
+  window.removeEventListener("click", cacafoti);
+}
+
+function setTerrain(b) {
+  let a = true;
+  console.log(b.path);
+  //b.setAttribute("class", "wall");
+  //console.log(b.getAttribute("class"));
+}
+//////////////////
+
+//OBJETO
+
+function Pawn(x, y, type) {
+  this.x = x;
+  this.y = y;
+  this.type = type;
+  this.canMove = {
+    up: true,
+    left: true,
+    rigth: true,
+    down: true,
+  };
+  this.seeAround = {
+    up: "",
+    left: "",
+    rigth: "",
+    down: "",
+  };
+}
+
+Pawn.prototype.show = function () {
+  getCell(this.x, this.y).setAttribute("class", this.type);
+};
+
+Pawn.prototype.hide = function () {
+  getCell(this.x, this.y).setAttribute("class", "celda");
+};
+
+Pawn.prototype.move = function () {
+  //console.log("Empty function, define by children");
+};
+
+Pawn.prototype.updatePosition = function () {
+  this.hide();
+  this.move();
+  this.show();
+};
+
+Pawn.prototype.whatAround = function () {
+  if (!null) {
+    this.seeAround.up = getCellClass(this.x, this.y - 1);
+  }
+  if (!null) {
+    this.seeAround.left = getCellClass(this.x - 1, this.y);
+  }
+  if (!null) {
+    this.seeAround.down = getCellClass(this.x, this.y + 1);
+  }
+  if (!null) {
+    this.seeAround.rigth = getCellClass(this.x + 1, this.y);
+  }
+};
+
 // Soldado
+function Soldier(x, y) {
+  this.x = x;
+  this.y = y;
+}
 Soldier.prototype.show = function () {
-  getCasilla(this.x, this.y).setAttribute("class", "soldado");
+  getCell(this.x, this.y).setAttribute("class", "soldado");
 };
 
 Soldier.prototype.hide = function () {
-  getCasilla(this.x, this.y).setAttribute("class", "celda");
+  getCell(this.x, this.y).setAttribute("class", "celda");
 };
 
 Soldier.prototype.setPos = function (a) {
@@ -65,11 +137,11 @@ function Zombie(x, y) {
 }
 
 Zombie.prototype.show = function () {
-  getCasilla(this.x, this.y).setAttribute("class", "zombie");
+  getCell(this.x, this.y).setAttribute("class", "zombie");
 };
 
 Zombie.prototype.hide = function () {
-  getCasilla(this.x, this.y).setAttribute("class", "celda");
+  getCell(this.x, this.y).setAttribute("class", "celda");
 };
 
 Zombie.prototype.setPos = function () {

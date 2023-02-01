@@ -31,3 +31,11 @@ td {
 .zombie {
   background-color: var(--verde);
 }
+
+.dummy {
+  background-color: var(--acento3);
+}
+
+.wall {
+  background-color: var(--gris);
+}
