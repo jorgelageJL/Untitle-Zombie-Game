@@ -57,11 +57,21 @@ Zombie.prototype.hide = function () {
 };
 
 Zombie.prototype.move = function () {
+  let pos = document.querySelector('.soldado')
+  let posX = pos.getAttribute('id')
+  let posY = pos.parentElement.getAttribute('id')
+
+  // console.log(posX)
+
+
+  this.hide()
   if (this.x === 1) {
     this.x = 20;
+    this.y--;
   } else {
     this.x--;
   }
+  this.show()
 };
 
 //FUNCIONES SALVAJES
@@ -73,6 +83,15 @@ tecla = window.addEventListener("keydown", (e) => {
   //   console.log(e.key);
   s.setPos(e.key);
 });
+
+function separarFilas(str) {
+  let s = ''
+  for (let i of str) {
+    if (i >= 0 && i <= 9)
+    s += i
+  }
+  return s
+}
 
 function limpiaCelda() {
   // document.querySelectorAll("td").setAttribute("class", "celda");
