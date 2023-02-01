@@ -14,15 +14,15 @@ function Soldier(x, y) {
 //FUNCIONES SALVAJES
 function getCasilla(col, row) {
   return document.querySelector(`#row${row}>#col${col}`);
-}// INPUT: (x,y) OUTPUT: (Referencia a celda)
+} // INPUT: (x,y) OUTPUT: (Referencia a celda)
 
 window.addEventListener("keydown", (e) => {
   player.setPos(e.key);
-}); // REVISAR? 
+}); // REVISAR?
 
 function loop() {
   player.setPos();
-  enemy.move();
+  enemy.setPos();
 } //REVISAR MUY FUERTE
 
 // Soldado
@@ -45,7 +45,7 @@ Soldier.prototype.setPos = function (a) {
   } else if (a === "s") {
     this.y++;
   }
-  this.show()
+  this.show();
 };
 
 // ZOMBIE
@@ -62,15 +62,13 @@ Zombie.prototype.hide = function () {
   getCasilla(this.x, this.y).classList.remove("zombie");
 };
 
-Zombie.prototype.move = function () {
-  this.hide()
+Zombie.prototype.setPos = function () {
+  this.hide();
   if (this.x > player.x) {
-    this.x--
-  } else if (this.x < player.x)
-    this.x++ === null
+    this.x--;
+  } else if (this.x < player.x) this.x++ === null;
   if (this.y > player.y) {
-    this.y--
-  } else if (this.y < player.y)
-    this.y++
-  this.show()
+    this.y--;
+  } else if (this.y < player.y) this.y++;
+  this.show();
 };
