@@ -17,6 +17,13 @@ function Peon(/*vida, balas,*/ x, y) {
     this.y = y;
 };
 
+function Zombie(/*vida, balas,*/ x, y) {
+    // this.vida = vida;
+    // this.balas = balas;
+    this.x = x;
+    this.y = y;
+};
+
 Peon.prototype.show = function () {
     getCasilla(this.x, this.y).setAttribute("class", "soldado");
 };
@@ -24,6 +31,15 @@ Peon.prototype.show = function () {
 Peon.prototype.hide = function () {
     // console.log(this.x, this.y)
     getCasilla(this.x, this.y).classList.remove('soldado');
+};
+
+Zombie.prototype.show = function () {
+    getCasilla(this.x, this.y).setAttribute("class", "zombie");
+};
+
+Zombie.prototype.hide = function () {
+    // console.log(this.x, this.y)
+    getCasilla(this.x, this.y).classList.remove('zombie');
 };
 
 Peon.prototype.setPos = function (a) {
@@ -42,6 +58,8 @@ Peon.prototype.setPos = function (a) {
     }
 };
 
+
+
 //FUNCIONES SALVAJES
 function getCasilla(col, row) {
     return document.querySelector(`#row${row}>#col${col}`);
@@ -56,6 +74,7 @@ function limpiaCelda() {
     // document.querySelectorAll("td").setAttribute("class", "celda");
     s.setPos();
     s.show();
+    ene1.show();
     // s.hide();
 }
 
@@ -65,7 +84,11 @@ function loop() {
 
 ///LLAMADAS
 let s = new Peon(5, 1);
+let ene1 = new Zombie(4, 6)
 
 let timeID = setInterval(loop, 33);
 
 // console.log(document.querySelectorAll("td"));
+
+
+
