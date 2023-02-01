@@ -20,7 +20,6 @@ Peon.prototype.setX = function (x) {
     this.x = x;
 }
 
-
 Peon.prototype.setY = function (y) {
     this.y = y;
 }
@@ -30,4 +29,6 @@ function getCasilla(row, col) {
 }
 
 let s = new Peon(5, 1);
+s.setX(8)
+s.setY(8)
 s.spwan()
