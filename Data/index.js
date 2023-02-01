@@ -57,20 +57,28 @@ Zombie.prototype.hide = function () {
 };
 
 Zombie.prototype.move = function () {
-  let pos = document.querySelector('.soldado')
-  let posX = pos.getAttribute('id')
-  let posY = pos.parentElement.getAttribute('id')
+  let posSoldado = document.querySelector('.soldado')
+  let posXsoldado = separarFilas(posSoldado.getAttribute('id'))
+  let posYsoldado = separarFilas(posSoldado.parentElement.getAttribute('id'))
 
-  // console.log(posX)
+   console.log(posYsoldado)
 
 
   this.hide()
-  if (this.x === 1) {
+  /*if (this.x === 1) {
     this.x = 20;
     this.y--;
   } else {
     this.x--;
-  }
+  }*/
+  if (this.x > posXsoldado) {
+    this.x--
+ } else if (this.x < posXsoldado)
+    this.x++
+    if (this.y > posYsoldado) {
+      this.y--
+    } else if (this.y < posYsoldado)
+    this.y++
   this.show()
 };
 
@@ -90,7 +98,7 @@ function separarFilas(str) {
     if (i >= 0 && i <= 9)
     s += i
   }
-  return s
+  return parseInt(s)
 }
 
 function limpiaCelda() {
