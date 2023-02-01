@@ -27,3 +27,7 @@ td {
 .soldado {
   background-color: var(--acento2);
 }
+
+.zombie {
+  background-color: green;
+}
