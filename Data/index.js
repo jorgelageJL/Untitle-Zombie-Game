@@ -1,4 +1,6 @@
 //VARIABLES
+
+//Testing
 //LLAMADAS
 let player = new Soldier(5, 1);
 let enemy = new Zombie(4, 6);
