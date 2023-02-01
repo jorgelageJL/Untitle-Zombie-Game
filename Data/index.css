@@ -20,8 +20,8 @@ tr {
 
 td {
   border: 1px solid black;
-  width: 10px;
-  height: 10px;
+  width: 40px;
+  height: 40px;
 }
 
 .soldado {
@@ -29,5 +29,5 @@ td {
 }
 
 .zombie {
-  background-color: green;
+  background-color: var(--verde);
 }
