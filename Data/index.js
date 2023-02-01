@@ -5,6 +5,8 @@ let enemy = new Zombie(4, 6);
 
 let timeID = setInterval(loop, 1000);
 
+console.log(who(5, 2));
+
 //OBJETO
 function Soldier(x, y) {
   this.x = x;
@@ -16,6 +18,11 @@ function getCasilla(col, row) {
   return document.querySelector(`#row${row}>#col${col}`);
 } // INPUT: (x,y) OUTPUT: (Referencia a celda)
 
+function who(x, y) {
+  let a = getCasilla(x, y);
+  return a.getAttribute("class");
+}
+
 window.addEventListener("keydown", (e) => {
   player.setPos(e.key);
 }); // REVISAR?
@@ -23,6 +30,7 @@ window.addEventListener("keydown", (e) => {
 function loop() {
   player.setPos();
   enemy.setPos();
+  console.log(who(5, 2));
 } //REVISAR MUY FUERTE
 
 // Soldado
@@ -31,7 +39,7 @@ Soldier.prototype.show = function () {
 };
 
 Soldier.prototype.hide = function () {
-  getCasilla(this.x, this.y).classList.remove("soldado");
+  getCasilla(this.x, this.y).setAttribute("class", "celda");
 };
 
 Soldier.prototype.setPos = function (a) {
@@ -59,7 +67,7 @@ Zombie.prototype.show = function () {
 };
 
 Zombie.prototype.hide = function () {
-  getCasilla(this.x, this.y).classList.remove("zombie");
+  getCasilla(this.x, this.y).setAttribute("class", "celda");
 };
 
 Zombie.prototype.setPos = function () {
