@@ -96,7 +96,6 @@ Soldier.prototype = Object.create(Pawn.prototype);
 Soldier.prototype.constructor = Soldier;
 
 Soldier.prototype.move = function (a) {
-  console.log(this.type, this.canMove);
   this.hide();
   if (a === "a" && this.canMove.left) {
     this.x--;
