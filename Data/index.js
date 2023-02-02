@@ -38,11 +38,13 @@ function Pawn(x, y, type, blocked) {
     rigth: "",
     down: "",
   };
-  this.blockedTerrain = blocked;
+  this.blockedTerrain = [...blocked];
 }
 
 Pawn.prototype.show = function () {
   getCell(this.x, this.y).setAttribute("class", this.type);
+  this.whatAround();
+  this.canGo();
 };
 
 Pawn.prototype.hide = function () {
@@ -53,7 +55,6 @@ Pawn.prototype.move = function () {
   this.hide();
   //console.log("Empty function, define by children");
   this.show();
-  this.whatAround();
 };
 
 Pawn.prototype.whatAround = function () {
@@ -64,26 +65,27 @@ Pawn.prototype.whatAround = function () {
 };
 
 Pawn.prototype.canGo = function () {
+  this.canMove.up = true;
+  this.canMove.left = true;
+  this.canMove.down = true;
+  this.canMove.rigth = true;
   ///AQUI TE QUEDASTE
-  if (this.seeAround.up === false) {
-    this.canMove.up = false;
-  } else if (this.seeAround.left === false) {
-    this.canMove.left = false;
-  } else if (this.seeAround.sown === false) {
-    this.canMove.down = false;
-  } else if (this.seeAround.rigth === false) {
-    this.canMove.rigth = false;
-  } else {
-    this.canMove.up = true;
-    this.canMove.left = true;
-    this.canMove.down = true;
-    this.canMove.rigth = true;
+  for (let index = 0; index < this.blockedTerrain.length; index++) {
+    if (this.seeAround.up === this.blockedTerrain[index]) {
+      this.canMove.up = false;
+    } else if (this.seeAround.left === this.blockedTerrain[index]) {
+      this.canMove.left = false;
+    } else if (this.seeAround.down === this.blockedTerrain[index]) {
+      this.canMove.down = false;
+    } else if (this.seeAround.rigth === this.blockedTerrain[index]) {
+      this.canMove.rigth = false;
+    }
   }
 };
 
 // Soldado
-function Soldier(x, y, type) {
-  Pawn.call(this, x, y, type);
+function Soldier(x, y, type, blocked) {
+  Pawn.call(this, x, y, type, blocked);
 }
 
 Soldier.prototype = Object.create(Pawn.prototype);
@@ -104,8 +106,8 @@ Soldier.prototype.move = function (a) {
 };
 
 // ZOMBIE
-function Zombie(x, y, type) {
-  Pawn.call(this, x, y, type);
+function Zombie(x, y, type, blocked) {
+  Pawn.call(this, x, y, type, blocked);
   this.go = true;
 }
 
@@ -114,13 +116,18 @@ Zombie.prototype.constructor = Zombie;
 
 Zombie.prototype.move = function () {
   this.hide();
+  console.log(this.type, this.canMove);
   if (this.go) {
     if (this.x > player.x) {
       this.x--;
-    } else if (this.x < player.x) this.x++ === null;
+    } else if (this.x < player.x) {
+      this.x++;
+    }
     if (this.y > player.y) {
       this.y--;
-    } else if (this.y < player.y) this.y++;
+    } else if (this.y < player.y) {
+      this.y++;
+    }
     this.go = false;
   } else {
     this.go = true;
@@ -129,10 +136,12 @@ Zombie.prototype.move = function () {
 };
 
 //LLAMADAS
-// let player, enemy, peon;
-let player = new Soldier(5, 2, "soldier");
-let enemy = new Zombie(4, 6, "zombie");
-let peon = new Pawn(2, 2, "dummy");
+let player = new Soldier(5, 2, "soldier", ["dummy"]);
+let enemy = new Zombie(4, 6, "zombie", ["dummy", "soldier"]);
+
+let peon = new Pawn(2, 2, "dummy", []);
+
+loop();
 
 window.addEventListener("keydown", (e) => {
   player.move(e.key);
