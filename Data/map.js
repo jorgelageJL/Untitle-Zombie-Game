@@ -30,4 +30,4 @@ let map = {
   },
 };
 
-console.log(map.createMap());
+map.createMap();
