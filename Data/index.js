@@ -13,8 +13,16 @@ function getCellClass(x, y) {
 function loop() {
   player.move();
   enemy.move();
+  lose();
   //peon.move();
 } //REVISAR MUY FUERTE
+
+function lose() {
+  if (player.x === enemy.x && player.y === enemy.y) {
+    window.alert("GAME OVER");
+    location.reload();
+  }
+}
 
 /////////////////// IMPLEMENTAR CON VARIABLE GRLOBAL "CAN BUILD"
 
