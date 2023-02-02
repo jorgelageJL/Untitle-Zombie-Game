@@ -42,6 +42,7 @@ function Pawn(x, y, type, blocked) {
 }
 
 Pawn.prototype.show = function () {
+  console.log(this.x, this.y)
   getCell(this.x, this.y).setAttribute("class", this.type);
 };
 
