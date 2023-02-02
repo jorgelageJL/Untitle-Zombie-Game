@@ -42,12 +42,14 @@ function Pawn(x, y, type, blocked) {
 }
 
 Pawn.prototype.show = function () {
+  this.canGo();
   getCell(this.x, this.y).setAttribute("class", this.type);
   this.whatAround();
-  this.canGo();
 };
 
 Pawn.prototype.hide = function () {
+  this.whatAround();
+  this.canGo();
   getCell(this.x, this.y).setAttribute("class", "floor");
 };
 
@@ -69,15 +71,17 @@ Pawn.prototype.canGo = function () {
   this.canMove.left = true;
   this.canMove.down = true;
   this.canMove.rigth = true;
-  ///AQUI TE QUEDASTE
   for (let index = 0; index < this.blockedTerrain.length; index++) {
     if (this.seeAround.up === this.blockedTerrain[index]) {
       this.canMove.up = false;
-    } else if (this.seeAround.left === this.blockedTerrain[index]) {
+    }
+    if (this.seeAround.left === this.blockedTerrain[index]) {
       this.canMove.left = false;
-    } else if (this.seeAround.down === this.blockedTerrain[index]) {
+    }
+    if (this.seeAround.down === this.blockedTerrain[index]) {
       this.canMove.down = false;
-    } else if (this.seeAround.rigth === this.blockedTerrain[index]) {
+    }
+    if (this.seeAround.rigth === this.blockedTerrain[index]) {
       this.canMove.rigth = false;
     }
   }
@@ -92,6 +96,7 @@ Soldier.prototype = Object.create(Pawn.prototype);
 Soldier.prototype.constructor = Soldier;
 
 Soldier.prototype.move = function (a) {
+  console.log(this.type, this.canMove);
   this.hide();
   if (a === "a" && this.canMove.left) {
     this.x--;
@@ -116,7 +121,7 @@ Zombie.prototype.constructor = Zombie;
 
 Zombie.prototype.move = function () {
   this.hide();
-  console.log(this.type, this.canMove);
+
   if (this.go) {
     if (this.x > player.x && this.canMove.left) {
       this.x--;
