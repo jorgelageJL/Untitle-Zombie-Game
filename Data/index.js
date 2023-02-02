@@ -37,7 +37,7 @@ function setTerrain(b) {
 
 //OBJETO
 
-function Pawn(x, y, type) {
+function Pawn(x, y, type, blocked) {
   this.x = x;
   this.y = y;
   this.type = type;
@@ -53,6 +53,7 @@ function Pawn(x, y, type) {
     rigth: "",
     down: "",
   };
+  this.blockedTerrain = blocked;
 }
 
 Pawn.prototype.show = function () {
@@ -76,13 +77,23 @@ Pawn.prototype.whatAround = function () {
   this.seeAround.down = getCellClass(this.x, this.y + 1);
   this.seeAround.rigth = getCellClass(this.x + 1, this.y);
 };
-/*
-Pawn.prototype.canGo = function (){
-  if(){this.canMove.up = false}
-  else if(){this.canMove.left = false}
-  else if(){this.canMove.down = false}
-  else if(){this.canMove.rigth = false}
-}*/
+
+Pawn.prototype.canGo = function () {
+  if (this.seeAround.up === false) {
+    this.canMove.up = false;
+  } else if (this.seeAround.left === false) {
+    this.canMove.left = false;
+  } else if (this.seeAround.sown === false) {
+    this.canMove.down = false;
+  } else if (this.seeAround.rigth === false) {
+    this.canMove.rigth = false;
+  } else {
+    this.canMove.up = true;
+    this.canMove.left = true;
+    this.canMove.down = true;
+    this.canMove.rigth = true;
+  }
+};
 
 // Soldado
 function Soldier(x, y, type) {
@@ -135,7 +146,7 @@ Zombie.prototype.move = function () {
 let player = new Soldier(5, 2, "soldier");
 let enemy = new Zombie(4, 6, "zombie");
 
-let peon = new Pawn(9, 19, "dummy");
+let peon = new Pawn(2, 2, "dummy");
 
 loop();
 
