@@ -11,9 +11,9 @@ function getCellClass(x, y) {
 }
 
 function loop() {
-  player.setPos();
-  enemy.setPos();
-  peon.updatePosition();
+  player.move();
+  enemy.move();
+  peon.move();
   //console.log(getCellClass(5, 2));
 } //REVISAR MUY FUERTE
 
@@ -65,44 +65,27 @@ Pawn.prototype.hide = function () {
 };
 
 Pawn.prototype.move = function () {
-  //console.log("Empty function, define by children");
-};
-
-Pawn.prototype.updatePosition = function () {
   this.hide();
-  this.move();
+  //console.log("Empty function, define by children");
   this.show();
 };
 
 Pawn.prototype.whatAround = function () {
-  if (!null) {
-    this.seeAround.up = getCellClass(this.x, this.y - 1);
-  }
-  if (!null) {
-    this.seeAround.left = getCellClass(this.x - 1, this.y);
-  }
-  if (!null) {
-    this.seeAround.down = getCellClass(this.x, this.y + 1);
-  }
-  if (!null) {
-    this.seeAround.rigth = getCellClass(this.x + 1, this.y);
-  }
+  this.seeAround.up = getCellClass(this.x, this.y - 1);
+  this.seeAround.left = getCellClass(this.x - 1, this.y);
+  this.seeAround.down = getCellClass(this.x, this.y + 1);
+  this.seeAround.rigth = getCellClass(this.x + 1, this.y);
 };
 
 // Soldado
-function Soldier(x, y) {
-  this.x = x;
-  this.y = y;
+function Soldier(x, y, type) {
+  Pawn.call(this, x, y, type);
 }
-Soldier.prototype.show = function () {
-  getCell(this.x, this.y).setAttribute("class", "soldado");
-};
 
-Soldier.prototype.hide = function () {
-  getCell(this.x, this.y).setAttribute("class", "celda");
-};
+Soldier.prototype = Object.create(Pawn.prototype);
+Soldier.prototype.constructor = Soldier;
 
-Soldier.prototype.setPos = function (a) {
+Soldier.prototype.move = function (a) {
   this.hide();
   if (a === "a") {
     this.x--;
@@ -117,47 +100,39 @@ Soldier.prototype.setPos = function (a) {
 };
 
 // ZOMBIE
-function Zombie(x, y) {
-  this.x = x;
-  this.y = y;
-  this.canMove = true;
+function Zombie(x, y, type) {
+  Pawn.call(this, x, y, type);
+  this.go = true;
 }
 
-Zombie.prototype.show = function () {
-  getCell(this.x, this.y).setAttribute("class", "zombie");
-};
+Zombie.prototype = Object.create(Pawn.prototype);
+Zombie.prototype.constructor = Zombie;
 
-Zombie.prototype.hide = function () {
-  getCell(this.x, this.y).setAttribute("class", "celda");
-};
-
-Zombie.prototype.setPos = function () {
+Zombie.prototype.move = function () {
   this.hide();
-  if (this.canMove) {
+  if (this.go) {
     if (this.x > player.x) {
       this.x--;
     } else if (this.x < player.x) this.x++ === null;
     if (this.y > player.y) {
       this.y--;
     } else if (this.y < player.y) this.y++;
-    this.canMove = false;
+    this.go = false;
   } else {
-    this.canMove = true;
+    this.go = true;
   }
   this.show();
 };
 
 //LLAMADAS
-let player = new Soldier(5, 2);
-let enemy = new Zombie(4, 6);
+let player = new Soldier(5, 2, "soldier");
+let enemy = new Zombie(4, 6, "zombie");
 
 let peon = new Pawn(9, 19, "dummy");
-//let timeID = setInterval(loop, 1000);
 
-//console.log(getCellClass(5, 2));
 loop();
 
 window.addEventListener("keydown", (e) => {
-  player.setPos(e.key);
+  player.move(e.key);
   loop();
-}); // REVISAR?
+});
