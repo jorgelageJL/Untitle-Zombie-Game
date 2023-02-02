@@ -39,3 +39,7 @@ td {
 .wall {
   background-color: var(--gris);
 }
+
+.floor {
+  background-color: var(--marron);
+}
