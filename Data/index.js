@@ -1,15 +1,5 @@
 //VARIABLES
 
-//LLAMADAS
-let player = new Soldier(5, 2);
-let enemy = new Zombie(4, 6);
-
-let peon = new Pawn(9, 19, "dummy");
-
-//let timeID = setInterval(loop, 1000);
-
-//console.log(getCellClass(5, 2));
-
 //FUNCIONES SALVAJES
 function getCell(col, row) {
   return document.querySelector(`#row${row}>#col${col}`);
@@ -19,11 +9,6 @@ function getCellClass(x, y) {
   let a = getCell(x, y);
   return a.getAttribute("class");
 }
-
-window.addEventListener("keydown", (e) => {
-  player.setPos(e.key);
-  loop();
-}); // REVISAR?
 
 function loop() {
   player.setPos();
@@ -161,3 +146,18 @@ Zombie.prototype.setPos = function () {
   }
   this.show();
 };
+
+//LLAMADAS
+let player = new Soldier(5, 2);
+let enemy = new Zombie(4, 6);
+
+let peon = new Pawn(9, 19, "dummy");
+//let timeID = setInterval(loop, 1000);
+
+//console.log(getCellClass(5, 2));
+loop();
+
+window.addEventListener("keydown", (e) => {
+  player.setPos(e.key);
+  loop();
+}); // REVISAR?
