@@ -129,12 +129,10 @@ Zombie.prototype.move = function () {
 };
 
 //LLAMADAS
+// let player, enemy, peon;
 let player = new Soldier(5, 2, "soldier");
 let enemy = new Zombie(4, 6, "zombie");
-
 let peon = new Pawn(2, 2, "dummy");
-
-loop();
 
 window.addEventListener("keydown", (e) => {
   player.move(e.key);
