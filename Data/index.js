@@ -14,7 +14,6 @@ function loop() {
   player.move();
   enemy.move();
   peon.move();
-  //console.log(getCellClass(5, 2));
 } //REVISAR MUY FUERTE
 
 /////////////////// IMPLEMENTAR CON VARIABLE GRLOBAL "CAN BUILD"
@@ -61,13 +60,14 @@ Pawn.prototype.show = function () {
 };
 
 Pawn.prototype.hide = function () {
-  getCell(this.x, this.y).setAttribute("class", "celda");
+  getCell(this.x, this.y).setAttribute("class", "floor");
 };
 
 Pawn.prototype.move = function () {
   this.hide();
   //console.log("Empty function, define by children");
   this.show();
+  this.whatAround();
 };
 
 Pawn.prototype.whatAround = function () {
@@ -76,6 +76,13 @@ Pawn.prototype.whatAround = function () {
   this.seeAround.down = getCellClass(this.x, this.y + 1);
   this.seeAround.rigth = getCellClass(this.x + 1, this.y);
 };
+
+Pawn.prototype.canGo = function (){
+  if(){this.canMove.up = false}
+  else if(){this.canMove.left = false}
+  else if(){this.canMove.down = false}
+  else if(){this.canMove.rigth = false}
+}
 
 // Soldado
 function Soldier(x, y, type) {
