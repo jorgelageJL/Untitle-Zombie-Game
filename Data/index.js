@@ -12,8 +12,11 @@ function getCellClass(x, y) {
 
 function loop() {
   player.move();
-  enemy.move();
-  lose();
+  enemy1.move();
+  enemy2.move();
+  enemy3.move();
+  enemy4.move();
+  //lose();
   //peon.move();
 } //REVISAR MUY FUERTE
 
@@ -131,14 +134,15 @@ Zombie.prototype.move = function () {
   this.hide();
 
   if (this.go) {
-    if (this.x > player.x && this.canMove.left) {
+    let a = Math.abs(this.x - player.x) <= Math.abs(this.y - player.y);
+    console.log(Math.abs(this.x - player.x), Math.abs(this.y - player.y));
+    if (!a && this.x > player.x && this.canMove.left) {
       this.x--;
-    } else if (this.x < player.x && this.canMove.rigth) {
+    } else if (!a && this.x < player.x && this.canMove.rigth) {
       this.x++;
-    }
-    if (this.y > player.y && this.canMove.up) {
+    } else if (a && this.y > player.y && this.canMove.up) {
       this.y--;
-    } else if (this.y < player.y && this.canMove.down) {
+    } else if (a && this.y < player.y && this.canMove.down) {
       this.y++;
     }
     this.go = false;
@@ -150,7 +154,10 @@ Zombie.prototype.move = function () {
 
 //LLAMADAS
 let player = new Soldier(5, 2, "soldier", ["dummy", "wall"]);
-let enemy = new Zombie(4, 6, "zombie", ["dummy", "soldier", "wall"]);
+let enemy1 = new Zombie(4, 10, "zombie", ["dummy", "soldier", "wall"]);
+let enemy2 = new Zombie(3, 6, "zombie", ["dummy", "soldier", "wall"]);
+let enemy3 = new Zombie(4, 4, "zombie", ["dummy", "soldier", "wall"]);
+let enemy4 = new Zombie(2, 2, "zombie", ["dummy", "soldier", "wall"]);
 
 //let peon = new Pawn(5, 5, "dummy", []);
 
