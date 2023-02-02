@@ -76,13 +76,13 @@ Pawn.prototype.whatAround = function () {
   this.seeAround.down = getCellClass(this.x, this.y + 1);
   this.seeAround.rigth = getCellClass(this.x + 1, this.y);
 };
-
+/*
 Pawn.prototype.canGo = function (){
   if(){this.canMove.up = false}
   else if(){this.canMove.left = false}
   else if(){this.canMove.down = false}
   else if(){this.canMove.rigth = false}
-}
+}*/
 
 // Soldado
 function Soldier(x, y, type) {
