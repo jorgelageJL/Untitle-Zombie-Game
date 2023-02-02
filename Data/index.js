@@ -6,7 +6,7 @@ let enemy = new Zombie(4, 6);
 
 let peon = new Pawn(9, 19, "dummy");
 
-let timeID = setInterval(loop, 1000);
+//let timeID = setInterval(loop, 1000);
 
 //console.log(getCellClass(5, 2));
 
@@ -22,6 +22,7 @@ function getCellClass(x, y) {
 
 window.addEventListener("keydown", (e) => {
   player.setPos(e.key);
+  loop();
 }); // REVISAR?
 
 function loop() {
@@ -31,7 +32,7 @@ function loop() {
   //console.log(getCellClass(5, 2));
 } //REVISAR MUY FUERTE
 
-///////////////////
+/////////////////// IMPLEMENTAR CON VARIABLE GRLOBAL "CAN BUILD"
 const clickTarget = document.getElementById("click-target");
 function build() {
   window.addEventListener("click", function cacafoti(e) {
@@ -134,6 +135,7 @@ Soldier.prototype.setPos = function (a) {
 function Zombie(x, y) {
   this.x = x;
   this.y = y;
+  this.canMove = true;
 }
 
 Zombie.prototype.show = function () {
@@ -146,11 +148,16 @@ Zombie.prototype.hide = function () {
 
 Zombie.prototype.setPos = function () {
   this.hide();
-  if (this.x > player.x) {
-    this.x--;
-  } else if (this.x < player.x) this.x++ === null;
-  if (this.y > player.y) {
-    this.y--;
-  } else if (this.y < player.y) this.y++;
+  if (this.canMove) {
+    if (this.x > player.x) {
+      this.x--;
+    } else if (this.x < player.x) this.x++ === null;
+    if (this.y > player.y) {
+      this.y--;
+    } else if (this.y < player.y) this.y++;
+    this.canMove = false;
+  } else {
+    this.canMove = true;
+  }
   this.show();
 };
