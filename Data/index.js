@@ -141,8 +141,6 @@ let enemy = new Zombie(4, 6, "zombie", ["dummy", "soldier"]);
 
 let peon = new Pawn(2, 2, "dummy", []);
 
-loop();
-
 window.addEventListener("keydown", (e) => {
   player.move(e.key);
   loop();
