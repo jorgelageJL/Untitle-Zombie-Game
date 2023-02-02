@@ -17,22 +17,7 @@ function loop() {
 } //REVISAR MUY FUERTE
 
 /////////////////// IMPLEMENTAR CON VARIABLE GRLOBAL "CAN BUILD"
-const clickTarget = document.getElementById("click-target");
-function build() {
-  window.addEventListener("click", function cacafoti(e) {
-    setTerrain(e);
-  });
-}
-function play() {
-  window.removeEventListener("click", cacafoti);
-}
 
-function setTerrain(b) {
-  let a = true;
-  console.log(b.path);
-  //b.setAttribute("class", "wall");
-  //console.log(b.getAttribute("class"));
-}
 //////////////////
 
 //OBJETO
@@ -79,6 +64,7 @@ Pawn.prototype.whatAround = function () {
 };
 
 Pawn.prototype.canGo = function () {
+  ///AQUI TE QUEDASTE
   if (this.seeAround.up === false) {
     this.canMove.up = false;
   } else if (this.seeAround.left === false) {
