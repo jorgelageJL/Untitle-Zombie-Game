@@ -10,26 +10,27 @@
 }
 
 table {
-  border: 1px solid black;
   border-collapse: collapse;
-}
-
-tr {
-  border: 1px solid black;
+  background-color: var(--marron);
 }
 
 td {
-  border: 1px solid black;
   width: 40px;
   height: 40px;
 }
 
 .soldier {
+  background-image: url("./images/soldier.png");
+  background-size: contain;
   background-color: var(--acento2);
+  border-radius: 100%;
 }
 
 .zombie {
+  background-image: url("./images/zombie.png");
+  background-size: contain;
   background-color: var(--verde);
+  border-radius: 100%;
 }
 
 .dummy {
@@ -37,9 +38,14 @@ td {
 }
 
 .wall {
+  background-image: url("./images/wall.png");
+  background-size: contain;
   background-color: var(--gris);
 }
 
 .floor {
+  background-image: url("./images/floor.png");
+  background-size: contain;
+  background-blend-mode: hard-light;
   background-color: var(--marron);
 }

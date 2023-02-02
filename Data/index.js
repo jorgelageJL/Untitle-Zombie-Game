@@ -13,7 +13,7 @@ function getCellClass(x, y) {
 function loop() {
   player.move();
   enemy.move();
-  peon.move();
+  //peon.move();
 } //REVISAR MUY FUERTE
 
 /////////////////// IMPLEMENTAR CON VARIABLE GRLOBAL "CAN BUILD"
@@ -144,7 +144,7 @@ Zombie.prototype.move = function () {
 let player = new Soldier(5, 2, "soldier", ["dummy", "wall"]);
 let enemy = new Zombie(4, 6, "zombie", ["dummy", "soldier", "wall"]);
 
-let peon = new Pawn(5, 5, "dummy", []);
+//let peon = new Pawn(5, 5, "dummy", []);
 
 window.addEventListener("keydown", (e) => {
   player.move(e.key);
