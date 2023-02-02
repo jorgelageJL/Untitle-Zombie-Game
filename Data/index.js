@@ -118,14 +118,14 @@ Zombie.prototype.move = function () {
   this.hide();
   console.log(this.type, this.canMove);
   if (this.go) {
-    if (this.x > player.x) {
+    if (this.x > player.x && this.canMove.left) {
       this.x--;
-    } else if (this.x < player.x) {
+    } else if (this.x < player.x && this.canMove.rigth) {
       this.x++;
     }
-    if (this.y > player.y) {
+    if (this.y > player.y && this.canMove.up) {
       this.y--;
-    } else if (this.y < player.y) {
+    } else if (this.y < player.y && this.canMove.down) {
       this.y++;
     }
     this.go = false;
@@ -136,10 +136,10 @@ Zombie.prototype.move = function () {
 };
 
 //LLAMADAS
-let player = new Soldier(5, 2, "soldier", ["dummy"]);
-let enemy = new Zombie(4, 6, "zombie", ["dummy", "soldier"]);
+let player = new Soldier(5, 2, "soldier", ["dummy", "wall"]);
+let enemy = new Zombie(4, 6, "zombie", ["dummy", "soldier", "wall"]);
 
-let peon = new Pawn(2, 2, "dummy", []);
+let peon = new Pawn(5, 5, "dummy", []);
 
 window.addEventListener("keydown", (e) => {
   player.move(e.key);
