@@ -97,13 +97,13 @@ Soldier.prototype.constructor = Soldier;
 
 Soldier.prototype.move = function (a) {
   this.hide();
-  if (a === "a" && this.canMove.left) {
+  if (a === "a" || a === "ArrowLeft" && this.canMove.left) {
     this.x--;
-  } else if (a === "d" && this.canMove.rigth) {
+  } else if (a === "d" || a === "ArrowRight" && this.canMove.rigth) {
     this.x++;
-  } else if (a === "w" && this.canMove.up) {
+  } else if (a === "w" || a === "ArrowUp" && this.canMove.up) {
     this.y--;
-  } else if (a === "s" && this.canMove.down) {
+  } else if (a === "s" || a === "ArrowDown" && this.canMove.down) {
     this.y++;
   }
   this.show();
