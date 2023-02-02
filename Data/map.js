@@ -1,23 +1,23 @@
 function calculateX() {
   let x = parseInt(document.querySelector("#cols").value);
-  if (!x) {
-    x = 10;
-  }
-  return x < 10 ? 10 : x;
+  // if (!x) {
+  //   x = 10;
+  // }
+  return !x || x < 10 ? 10 : x;
 }
 
 function calculateY() {
   let y = parseInt(document.querySelector("#rows").value);
-  if (!y) {
-    y = 10;
-  }
-  return y < 10 ? 10 : y;
+  // if (!y) {
+  //   y = 10;
+  // }
+  return !y || y < 10 ? 10 : y;
 }
 
 let map = {
   x: calculateX(),
   y: calculateY(),
-  createMap: function () {
+  createMap: function() {
     const parent = document.getElementsByTagName("table")[0];
     // INICIO
     let row = document.createElement("tr");
@@ -45,5 +45,3 @@ let map = {
     parent.appendChild(row);
   },
 };
-
-map.createMap();
