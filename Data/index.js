@@ -10,16 +10,6 @@ function getCellClass(x, y) {
   return a.getAttribute("class");
 }
 
-function loop() {
-  player.move();
-  enemy1.move();
-  enemy2.move();
-  enemy3.move();
-  enemy4.move();
-  //lose();
-  //peon.move();
-} //REVISAR MUY FUERTE
-
 function lose() {
   if (player.x === enemy.x && player.y === enemy.y) {
     window.alert("GAME OVER");
@@ -27,7 +17,41 @@ function lose() {
   }
 }
 
-/////////////////// IMPLEMENTAR CON VARIABLE GRLOBAL "CAN BUILD"
+///////////////////
+
+function Game() {
+  this.player = [];
+  this.enemy = [];
+  this.loop = [];
+  this.gameOn = false;
+}
+
+Game.prototype.startGame = function () {
+  this.addPlayer();
+  this.addEnemy();
+  this.player[0].show();
+  this.enemy[0].show();
+  this.gameOn = true;
+};
+
+Game.prototype.runLoop = function (a) {
+  if (this.gameOn) {
+    if (this.player.length > 0) this.player[0].move(a);
+    if (this.enemy.length > 0) {
+      this.enemy.map((a) => a.move());
+    }
+  }
+};
+
+Game.prototype.addPlayer = function () {
+  if (this.player.length < 1) {
+    this.player.push(new Soldier(2, 2, "soldier", ["wall", "zombie"]));
+  }
+};
+
+Game.prototype.addEnemy = function () {
+  this.enemy.push(new Zombie(4, 9, "zombie", ["dummy", "wall"]));
+};
 
 //////////////////
 
@@ -77,6 +101,8 @@ Pawn.prototype.whatAround = function () {
   this.seeAround.rigth = getCellClass(this.x + 1, this.y);
 };
 
+Pawn.prototype.whithMe = function () {}; //PENDIENTE
+
 Pawn.prototype.canGo = function () {
   this.canMove.up = true;
   this.canMove.left = true;
@@ -102,19 +128,18 @@ Pawn.prototype.canGo = function () {
 function Soldier(x, y, type, blocked) {
   Pawn.call(this, x, y, type, blocked);
 }
-
 Soldier.prototype = Object.create(Pawn.prototype);
 Soldier.prototype.constructor = Soldier;
 
-Soldier.prototype.move = function (a) {
+Soldier.prototype.move = function (keyInput) {
   this.hide();
-  if (a === "a" && this.canMove.left) {
+  if (keyInput === "a" && this.canMove.left) {
     this.x--;
-  } else if (a === "d" && this.canMove.rigth) {
+  } else if (keyInput === "d" && this.canMove.rigth) {
     this.x++;
-  } else if (a === "w" && this.canMove.up) {
+  } else if (keyInput === "w" && this.canMove.up) {
     this.y--;
-  } else if (a === "s" && this.canMove.down) {
+  } else if (keyInput === "s" && this.canMove.down) {
     this.y++;
   }
   this.show();
@@ -133,15 +158,20 @@ Zombie.prototype.move = function () {
   this.hide();
 
   if (this.go) {
-    let a = Math.abs(this.x - player.x) <= Math.abs(this.y - player.y);
-    console.log(Math.abs(this.x - player.x), Math.abs(this.y - player.y));
-    if (!a && this.x > player.x && this.canMove.left) {
+    let a =
+      Math.abs(this.x - newGame.player[0].x) <=
+      Math.abs(this.y - newGame.player[0].y);
+    console.log(
+      Math.abs(this.x - newGame.player[0].x),
+      Math.abs(this.y - newGame.player[0].y)
+    );
+    if (!a && this.x > newGame.player[0].x && this.canMove.left) {
       this.x--;
-    } else if (!a && this.x < player.x && this.canMove.rigth) {
+    } else if (!a && this.x < newGame.player[0].x && this.canMove.rigth) {
       this.x++;
-    } else if (a && this.y > player.y && this.canMove.up) {
+    } else if (a && this.y > newGame.player[0].y && this.canMove.up) {
       this.y--;
-    } else if (a && this.y < player.y && this.canMove.down) {
+    } else if (a && this.y < newGame.player[0].y && this.canMove.down) {
       this.y++;
     }
     this.go = false;
@@ -152,15 +182,11 @@ Zombie.prototype.move = function () {
 };
 
 //LLAMADAS
-let player = new Soldier(5, 2, "soldier", ["dummy", "wall"]);
-let enemy1 = new Zombie(4, 9, "zombie", ["dummy", "soldier", "wall"]);
-let enemy2 = new Zombie(3, 6, "zombie", ["dummy", "soldier", "wall"]);
-let enemy3 = new Zombie(4, 4, "zombie", ["dummy", "soldier", "wall"]);
-let enemy4 = new Zombie(2, 2, "zombie", ["dummy", "soldier", "wall"]);
-
-//let peon = new Pawn(5, 5, "dummy", []);
+map.createMap();
+let newGame = new Game();
+newGame.startGame();
 
 window.addEventListener("keydown", (e) => {
-  player.move(e.key);
-  loop();
+  console.log(e);
+  newGame.runLoop(e.key);
 });
