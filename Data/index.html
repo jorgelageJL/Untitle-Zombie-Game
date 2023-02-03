@@ -10,17 +10,30 @@
     <title>Untitled Zombie Game</title>
   </head>
   <body>
-    <label for="cols">
-      Insert higth
-      <input type="number" id="cols" placeholder="From (10) to (30)" />
-    </label>
-    <br />
-    <label for="rows">
-      Insert whidth
-      <input type="number" id="rows" placeholder="From (10) to (20)" />
-    </label>
+    <h1>Zombie Game</h1>
+    <img src="./logo.png" />
 
-    <button id="playGame">Play Game</button>
+    <div>
+      <label for="cols"
+        >Insert higth:
+        <input
+          min="10"
+          type="number"
+          id="cols"
+          placeholder="From (10) to (30)"
+        />
+      </label>
+      <br /><br />
+      <label for="rows"
+        >&nbsp;&nbsp;&nbsp;Insert width:
+        <input
+          min="10"
+          type="number"
+          id="rows"
+          placeholder="From (10) to (20)"
+        /> </label
+      ><button id="playGame">Play Game</button>
+    </div>
 
     <script src="./map.js"></script>
     <script src="./index.js"></script>
