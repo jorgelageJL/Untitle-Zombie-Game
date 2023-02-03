@@ -11,9 +11,11 @@
 body {
   background-color: var(--negro);
   color: var(--blanco);
+  text-align: center;
 }
 
 table {
+  margin: auto;
   border-collapse: collapse;
   background-color: var(--marron);
 }
@@ -23,15 +25,19 @@ td {
   height: 40px;
 }
 
+h1 {
+  font-size: large;
+}
+
 .soldier {
-  background-image: url("./images/soldier.png");
+  background-image: url("../assests/images/soldier.png");
   background-size: contain;
   background-color: var(--acento2);
   border-radius: 100%;
 }
 
 .zombie {
-  background-image: url("./images/zombie.png");
+  background-image: url("../assests/images/zombie.png");
   background-size: contain;
   background-color: var(--verde);
   border-radius: 100%;
@@ -42,13 +48,13 @@ td {
 }
 
 .wall {
-  background-image: url("./images/wall.png");
+  background-image: url("../assests/images/wall.png");
   background-size: contain;
   background-color: var(--gris);
 }
 
 .floor {
-  background-image: url("./images/floor.png");
+  background-image: url("../assests/images/floor.png");
   background-size: contain;
   background-blend-mode: hard-light;
   background-color: var(--marron);

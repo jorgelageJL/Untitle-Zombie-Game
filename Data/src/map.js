@@ -11,7 +11,7 @@ function calculateY() {
 let map = {
   x: calculateX(),
   y: calculateY(),
-  createMap: function() {
+  createMap: function () {
     const parent = document.getElementsByTagName("body")[0];
     let table = document.createElement("table");
     // INICIO
