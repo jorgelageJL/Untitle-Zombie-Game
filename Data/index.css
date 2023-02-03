@@ -8,6 +8,10 @@
   --acento3: #c18549;
   --acento2: #384d64;
 }
+body {
+  background-color: var(--negro);
+  color: var(--blanco);
+}
 
 table {
   border-collapse: collapse;

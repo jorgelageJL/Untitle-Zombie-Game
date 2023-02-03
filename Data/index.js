@@ -108,13 +108,13 @@ Soldier.prototype.constructor = Soldier;
 
 Soldier.prototype.move = function (a) {
   this.hide();
-  if (a === "a" || a === "ArrowLeft" && this.canMove.left) {
+  if (a === "a" && this.canMove.left) {
     this.x--;
-  } else if (a === "d" || a === "ArrowRight" && this.canMove.rigth) {
+  } else if (a === "d" && this.canMove.rigth) {
     this.x++;
-  } else if (a === "w" || a === "ArrowUp" && this.canMove.up) {
+  } else if (a === "w" && this.canMove.up) {
     this.y--;
-  } else if (a === "s" || a === "ArrowDown" && this.canMove.down) {
+  } else if (a === "s" && this.canMove.down) {
     this.y++;
   }
   this.show();
@@ -153,7 +153,7 @@ Zombie.prototype.move = function () {
 
 //LLAMADAS
 let player = new Soldier(5, 2, "soldier", ["dummy", "wall"]);
-let enemy1 = new Zombie(4, 10, "zombie", ["dummy", "soldier", "wall"]);
+let enemy1 = new Zombie(4, 9, "zombie", ["dummy", "soldier", "wall"]);
 let enemy2 = new Zombie(3, 6, "zombie", ["dummy", "soldier", "wall"]);
 let enemy3 = new Zombie(4, 4, "zombie", ["dummy", "soldier", "wall"]);
 let enemy4 = new Zombie(2, 2, "zombie", ["dummy", "soldier", "wall"]);
