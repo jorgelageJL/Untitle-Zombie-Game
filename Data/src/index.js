@@ -28,6 +28,7 @@ function Game() {
 Game.prototype.startGame = function () {
   this.addPlayer();
   this.addEnemy(3);
+  this.entities.push(new Sword(2, 2, "sword"));
   this.entities.map((a) => a.show());
   this.gameOn = true;
 };
@@ -37,9 +38,9 @@ Game.prototype.stopLoop = function () {
 };
 
 Game.prototype.runLoop = function (keyInput) {
-  if (this.gameOn) {
-    if (this.entities.length > 0) this.entities.map((b) => b.move(keyInput));
-  }
+  // if (this.gameOn) {
+  if (this.entities.length > 0) this.entities.map((b) => b.move(keyInput));
+  // }
 };
 
 Game.prototype.addPlayer = function () {
@@ -56,6 +57,30 @@ Game.prototype.addEnemy = function (num) {
   for (let index = 0; index < num; index++) {
     this.entities.push(new Zombie(4 + index, 8, "zombie"));
   }
+};
+
+Game.prototype.getEnemy = function (x, y) {
+  return this.entities.filter((a) => a.type === "zombie"
+  && a.x === x && a.y === y)[0];
+};
+
+Game.prototype.getEnemys = function () {
+  return this.entities.filter((a) => a.type === "zombie");
+};
+
+Game.prototype.removeEnemy = function (x, y) {
+  let enemy = this.getEnemy(x, y);
+  console.log(enemy);
+  // return ;
+};
+
+// Game.prototype.addSword = function () {
+//   console.log(this.getPlayer());
+//   // this.entities.push(new Sword(2, 2, "sword"));
+// };
+
+Game.prototype.getSword = function () {
+  return this.entities.filter((a) => a.type === "sword")[0];
 };
 
 Game.prototype.overlap = function () {
@@ -164,8 +189,8 @@ Soldier.prototype.move = function (keyInput) {
 };
 
 // ZOMBIE
-function Zombie(x, y, type, blocked) {
-  Pawn.call(this, x, y, type, blocked);
+function Zombie(x, y, type) {
+  Pawn.call(this, x, y, type);
   this.go = true;
   this.blockedTerrain = ["zombie", "wall"];
   this.target = ["soldier"];
@@ -178,9 +203,8 @@ Zombie.prototype.move = function () {
   this.hide();
 
   if (this.go) {
-    let a =
-      Math.abs(this.x - newGame.getPlayer().x) <=
-      Math.abs(this.y - newGame.getPlayer().y);
+    let a = Math.abs(this.x - newGame.getPlayer().x)
+    <= Math.abs(this.y - newGame.getPlayer().y);
     if (!a && this.x > newGame.getPlayer().x && this.canMove.left) {
       this.x--;
     } else if (!a && this.x < newGame.getPlayer().x && this.canMove.rigth) {
@@ -197,4 +221,45 @@ Zombie.prototype.move = function () {
   this.show();
 };
 
+
+//SWORD
+function Sword(x, y, type) {
+  Pawn.call(this, x, y, type);
+}
+
+Sword.prototype = Object.create(Pawn.prototype);
+Sword.prototype.constructor = Sword;
+
+Sword.prototype.throwSwordLeft = function () {
+  let enemys = newGame.getEnemys();
+  let player = newGame.getPlayer();
+  for (let i = player.x + 1; i < map.x - 1; i++) {
+    console.log(enemys);
+  }
+}
+
+Sword.prototype.move = function (keyInput) {
+  this.hide();
+  if (keyInput === "ArrowLeft" && this.canMove.left) {
+    console.log('Lanzando espada a la izquierda');
+    this.throwSwordLeft();
+    // this.x--;
+  } else if (keyInput === "ArrowRight" && this.canMove.rigth) {
+    console.log('Lanzando espada a la derecha');
+    this.throwSwordLeft();
+    // this.x++;
+  } else if (keyInput === "ArrowUp" && this.canMove.up) {
+    console.log('Lanzando espada arriba');
+    // this.y--;
+  } else if (keyInput === "ArrowDown" && this.canMove.down) {
+    console.log('Lanzando espada abajo');
+    // this.y++;
+  }
+  this.show();
+};
+
+Sword.prototype.getSword = function (keyInput) {
+  console.log(getCell(this.x, this.y));
+  return getCell(this.x, this.y);
+}
 //LLAMADAS
