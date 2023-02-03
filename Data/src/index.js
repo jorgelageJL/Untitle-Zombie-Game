@@ -69,8 +69,10 @@ Game.prototype.getEnemys = function () {
 };
 
 Game.prototype.removeEnemy = function (x, y) {
-  let enemy = this.getEnemy(x, y);
-  console.log(enemy);
+  let del = 
+  this.entities.splice()
+  // let enemy = this.getEnemy(x, y);
+  // console.log(enemy);
   // return ;
 };
 
@@ -242,7 +244,9 @@ Sword.prototype.throwSwordLeft = function () {
   // console.log(enemys.filter((e) => { e.x < player.x }));
   for (let i = player.x - 1, aux; i > 1; i--) {
     aux = newGame.getEnemy(i, player.y);
-    console.log(typeof aux != 'undefined');
+    if (typeof aux != 'undefined') {
+      aux.removeEnemy();
+    }
   }
 }
 
