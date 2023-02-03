@@ -17,44 +17,6 @@ function lose() {
   }
 }
 
-///////////////////
-
-function Game() {
-  this.player = [];
-  this.enemy = [];
-  this.loop = [];
-  this.gameOn = false;
-}
-
-Game.prototype.startGame = function () {
-  this.addPlayer();
-  this.addEnemy();
-  this.player[0].show();
-  this.enemy[0].show();
-  this.gameOn = true;
-};
-
-Game.prototype.runLoop = function (a) {
-  if (this.gameOn) {
-    if (this.player.length > 0) this.player[0].move(a);
-    if (this.enemy.length > 0) {
-      this.enemy.map((a) => a.move());
-    }
-  }
-};
-
-Game.prototype.addPlayer = function () {
-  if (this.player.length < 1) {
-    this.player.push(new Soldier(2, 2, "soldier", ["wall", "zombie"]));
-  }
-};
-
-Game.prototype.addEnemy = function () {
-  this.enemy.push(new Zombie(4, 9, "zombie", ["dummy", "wall"]));
-};
-
-//////////////////
-
 //OBJETO
 
 function Pawn(x, y, type, blocked) {
@@ -180,13 +142,3 @@ Zombie.prototype.move = function () {
   }
   this.show();
 };
-
-//LLAMADAS
-map.createMap();
-let newGame = new Game();
-newGame.startGame();
-
-window.addEventListener("keydown", (e) => {
-  console.log(e);
-  newGame.runLoop(e.key);
-});
