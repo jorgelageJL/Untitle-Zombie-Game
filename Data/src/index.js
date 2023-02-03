@@ -28,7 +28,7 @@ function Game() {
 Game.prototype.startGame = function () {
   this.addPlayer();
   this.addEnemy(3);
-  this.entities.push(new Sword(2, 2, "sword"));
+  this.entities.push(new Sword(5, 4, "sword"));
   this.entities.map((a) => a.show());
   this.gameOn = true;
 };
@@ -232,9 +232,17 @@ Sword.prototype.constructor = Sword;
 
 Sword.prototype.throwSwordLeft = function () {
   let enemys = newGame.getEnemys();
+  // console.log(this.x, this.y)
+  // console.log(enemys.filter((e) => {e.x === this.x && e.y === this.y}))
   let player = newGame.getPlayer();
-  for (let i = player.x + 1; i < map.x - 1; i++) {
-    console.log(enemys);
+  // console.log(enemys)
+  // console.log('x player: '+player.x)
+  // console.log('x enemy: ' +enemys[0].x)
+  // console.log(enemys[0].x < 8)
+  // console.log(enemys.filter((e) => { e.x < player.x }));
+  for (let i = player.x - 1, aux; i > 1; i--) {
+    aux = newGame.getEnemy(i, player.y);
+    console.log(typeof aux != 'undefined');
   }
 }
 
