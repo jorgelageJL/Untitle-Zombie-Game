@@ -28,8 +28,8 @@ function Game() {
 Game.prototype.startGame = function () {
   this.addPlayer();
   this.addEnemy(3);
-  this.entities.push(new Sword(5, 4, "sword"));
   this.entities.map((a) => a.show());
+  this.entities.push(new Sword(5, 4, "sword"));
   this.gameOn = true;
 };
 
@@ -68,12 +68,12 @@ Game.prototype.getEnemys = function () {
   return this.entities.filter((a) => a.type === "zombie");
 };
 
-Game.prototype.removeEnemy = function (x, y) {
-  let del = 
-  this.entities.splice()
-  // let enemy = this.getEnemy(x, y);
-  // console.log(enemy);
-  // return ;
+Game.prototype.removeEnemy = function (pos) {
+  if (pos !== -1) {
+    this.entities.splice(pos, 1);
+    return true;
+  }
+  return false;
 };
 
 // Game.prototype.addSword = function () {
@@ -233,25 +233,22 @@ Sword.prototype = Object.create(Pawn.prototype);
 Sword.prototype.constructor = Sword;
 
 Sword.prototype.throwSwordLeft = function () {
-  let enemys = newGame.getEnemys();
-  // console.log(this.x, this.y)
-  // console.log(enemys.filter((e) => {e.x === this.x && e.y === this.y}))
+  // let enemys = newGame.getEnemys();
   let player = newGame.getPlayer();
-  // console.log(enemys)
-  // console.log('x player: '+player.x)
-  // console.log('x enemy: ' +enemys[0].x)
-  // console.log(enemys[0].x < 8)
-  // console.log(enemys.filter((e) => { e.x < player.x }));
   for (let i = player.x - 1, aux; i > 1; i--) {
     aux = newGame.getEnemy(i, player.y);
     if (typeof aux != 'undefined') {
-      aux.removeEnemy();
+      // console.log(newGame.entities.indexOf(aux))
+      newGame.removeEnemy(newGame.entities.indexOf(aux));
+      // console.log(newGame.getEnemys())
+      newGame.show;
+      break;
     }
   }
 }
 
 Sword.prototype.move = function (keyInput) {
-  this.hide();
+  // this.hide();
   if (keyInput === "ArrowLeft" && this.canMove.left) {
     console.log('Lanzando espada a la izquierda');
     this.throwSwordLeft();
@@ -267,7 +264,7 @@ Sword.prototype.move = function (keyInput) {
     console.log('Lanzando espada abajo');
     // this.y++;
   }
-  this.show();
+  // this.show();
 };
 
 Sword.prototype.getSword = function (keyInput) {
