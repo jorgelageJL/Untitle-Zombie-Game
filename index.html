@@ -14,38 +14,28 @@
     <title>Untitled Zombie Game</title>
   </head>
   <body>
-    <h1>
-      Untitled
-      <img
-        style="height: 50px"
-        src="https://purepng.com/public/uploads/large/purepng.com-zombiezombiezombizonbihuman-corpsezombieshorrormental-diseasesviruses-1701527833077e0fnk.png"
-      />
-      Game
-    </h1>
-
+  <div><img class="logo" src="./Data/assests/images/logo.png"></div>
     <div>
       <label for="cols"
         >Insert higth:
         <input
-          min="10"
+          min="10" value="10"
           type="number"
           id="cols"
-          placeholder="From (10) to (30)"
-        />
+          placeholder="From (10) to (30)"/>
       </label>
       <label for="rows"
         >&nbsp;&nbsp;&nbsp;Insert width:
         <input
-          min="10"
+          min="10" value="10"
           type="number"
           id="rows"
-          placeholder="From (10) to (20)"
-        />
-        <br /><br /> </label
-      ><button id="playGame">Play Game</button>
+          placeholder="From (10) to (20)"/>
+      </label><button id="playGame">Play Game</button>
     </div>
 
     <script src="./Data/src/map.js"></script>
+    <script src="./Data/src/sounds.js"></script>
     <script src="./Data/src/index.js"></script>
     <script src="./Data/src/game.js"></script>
   </body>
