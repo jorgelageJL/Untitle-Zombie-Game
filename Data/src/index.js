@@ -233,25 +233,26 @@ Sword.prototype = Object.create(Pawn.prototype);
 Sword.prototype.constructor = Sword;
 
 Sword.prototype.throwSwordLeft = function () {
-  // let enemys = newGame.getEnemys();
   let player = newGame.getPlayer();
-  for (let i = player.x - 1, aux; i > 1; i--) {
-    aux = newGame.getEnemy(i, player.y);
-    if (typeof aux != 'undefined') {
-      // console.log(newGame.entities.indexOf(aux))
-      newGame.removeEnemy(newGame.entities.indexOf(aux));
-      // console.log(newGame.getEnemys())
+  for (let i = player.x - 1, zombieInArray; i > 1; i--) {
+    zombieInArray = newGame.getEnemy(i, player.y);
+    if (typeof zombieInArray != 'undefined') {
+      newGame.removeEnemy(newGame.entities.indexOf(zombieInArray));
+      let findZombie = getCell(i, player.y)
+      findZombie.setAttribute('class', 'floor')
+      // console.log(zombie)
       newGame.show;
       break;
     }
   }
+  return newGame.getEnemys().length !== 0
 }
 
 Sword.prototype.move = function (keyInput) {
   // this.hide();
   if (keyInput === "ArrowLeft" && this.canMove.left) {
     console.log('Lanzando espada a la izquierda');
-    this.throwSwordLeft();
+    console.log(this.throwSwordLeft());
     // this.x--;
   } else if (keyInput === "ArrowRight" && this.canMove.rigth) {
     console.log('Lanzando espada a la derecha');
