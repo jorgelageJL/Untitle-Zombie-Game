@@ -10,6 +10,14 @@ function getCellClass(x, y) {
   return a.getAttribute("class");
 }
 
+function isEmptyCell(x, y) {
+  return this.getCellClass(x, y) === 'floor';
+}
+
+function generatePosition(min, max) {
+  return parseInt(Math.random() * (max - min + 1)) + min;
+}
+
 function lose() {
   if (player.x === enemy.x && player.y === enemy.y) {
     window.alert("GAME OVER");
@@ -23,13 +31,16 @@ function Game() {
   this.entities = [];
   this.loop = [];
   this.gameOn = false;
+  this.numberOfEnemys = 3;
+  this.live = 10;
+  this.level = 1;
 }
 
 Game.prototype.startGame = function () {
   this.addPlayer();
-  this.addEnemy(3);
+  this.addEnemy(this.numberOfEnemys);
   this.entities.map((a) => a.show());
-  this.entities.push(new Sword(5, 4, "sword"));
+  this.entities.push(new Sword(2, 2, "sword"));
   this.gameOn = true;
 };
 
@@ -54,8 +65,12 @@ Game.prototype.getPlayer = function () {
 };
 
 Game.prototype.addEnemy = function (num) {
-  for (let index = 0; index < num; index++) {
-    this.entities.push(new Zombie(4 + index, 8, "zombie"));
+  for (let index = 0, aleatX, aleatY; index < num; index++) {
+    do {
+      aleatX = generatePosition(4, map.x - 1)
+      aleatY = generatePosition(4, map.x - 1)
+    } while (!isEmptyCell(aleatX, aleatY))
+    this.entities.push(new Zombie(aleatX, aleatY, "zombie"));
   }
 };
 
@@ -76,14 +91,9 @@ Game.prototype.removeEnemy = function (pos) {
   return false;
 };
 
-// Game.prototype.addSword = function () {
-//   console.log(this.getPlayer());
-//   // this.entities.push(new Sword(2, 2, "sword"));
+// Game.prototype.getSword = function () {
+//   return this.entities.filter((a) => a.type === "sword")[0];
 // };
-
-Game.prototype.getSword = function () {
-  return this.entities.filter((a) => a.type === "sword")[0];
-};
 
 Game.prototype.overlap = function () {
   let a = [];
@@ -240,30 +250,71 @@ Sword.prototype.throwSwordLeft = function () {
       newGame.removeEnemy(newGame.entities.indexOf(zombieInArray));
       let findZombie = getCell(i, player.y)
       findZombie.setAttribute('class', 'floor')
-      // console.log(zombie)
-      newGame.show;
       break;
     }
   }
-  return newGame.getEnemys().length !== 0
+}
+
+Sword.prototype.throwSwordRight = function () {
+  let player = newGame.getPlayer();
+  for (let i = player.x + 1, zombieInArray; i < map.x; i++) {
+    zombieInArray = newGame.getEnemy(i, player.y);
+    if (typeof zombieInArray != 'undefined') {
+      newGame.removeEnemy(newGame.entities.indexOf(zombieInArray));
+      let findZombie = getCell(i, player.y)
+      findZombie.setAttribute('class', 'floor')
+      break;
+    }
+  }
+}
+
+Sword.prototype.throwSwordUp = function () {
+  let player = newGame.getPlayer();
+  for (let i = player.y - 1, zombieInArray; i > 1; i--) {
+    zombieInArray = newGame.getEnemy(player.x, i);
+    if (typeof zombieInArray != 'undefined') {
+      newGame.removeEnemy(newGame.entities.indexOf(zombieInArray));
+      let findZombie = getCell(player.x, i)
+      findZombie.setAttribute('class', 'floor')
+      break;
+    }
+  }
+}
+
+Sword.prototype.throwSwordDown = function () {
+  let player = newGame.getPlayer();
+  for (let i = player.y + 1, zombieInArray; i < map.y; i++) {
+    zombieInArray = newGame.getEnemy(player.x, i);
+    if (typeof zombieInArray != 'undefined') {
+      newGame.removeEnemy(newGame.entities.indexOf(zombieInArray));
+      let findZombie = getCell(player.x, i)
+      findZombie.setAttribute('class', 'floor')
+      break;
+    }
+  }
 }
 
 Sword.prototype.move = function (keyInput) {
   // this.hide();
   if (keyInput === "ArrowLeft" && this.canMove.left) {
-    console.log('Lanzando espada a la izquierda');
-    console.log(this.throwSwordLeft());
-    // this.x--;
-  } else if (keyInput === "ArrowRight" && this.canMove.rigth) {
-    console.log('Lanzando espada a la derecha');
+    // console.log('Lanzando espada a la izquierda');
     this.throwSwordLeft();
-    // this.x++;
+  } else if (keyInput === "ArrowRight" && this.canMove.rigth) {
+    // console.log('Lanzando espada a la derecha');
+    this.throwSwordRight();
   } else if (keyInput === "ArrowUp" && this.canMove.up) {
-    console.log('Lanzando espada arriba');
-    // this.y--;
+    // console.log('Lanzando espada arriba');
+    this.throwSwordUp();
   } else if (keyInput === "ArrowDown" && this.canMove.down) {
-    console.log('Lanzando espada abajo');
-    // this.y++;
+    // console.log('Lanzando espada abajo');
+    this.throwSwordDown();
+  }
+  if (newGame.getEnemys().length === 0) {
+    ++newGame.level;
+    ++newGame.points;
+    ++newGame.numberOfEnemys;
+    alert('Next Level: ' + newGame.level);
+    newGame.startGame();
   }
   // this.show();
 };
@@ -272,4 +323,3 @@ Sword.prototype.getSword = function (keyInput) {
   console.log(getCell(this.x, this.y));
   return getCell(this.x, this.y);
 }
-//LLAMADAS
